@@ -1,0 +1,112 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Dungeon Game</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'dungeon/css/style.css' %}">
+    <!-- <link rel="stylesheet" type="text/css" href="../static/dungeon/css/style.css' %"> -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</head>
+<body>
+    {% csrf_token %}
+    <h1>AI Dungeon</h1>
+
+    <!-- Setup Container -->
+    <div id="setup-container">
+        <div class="world-selector-container">
+            <p class="world-info">Choose your adventure world. Switching worlds will reset your current adventure and start a new story in the selected setting.</p>
+            
+            <div class="world-selector">
+                <button class="world-btn active" data-world="fantasy" 
+                        title="A classic fantasy realm filled with magic, dragons, mythical creatures, and epic quests. Perfect for traditional fantasy adventures.">
+                    Fantasy World
+                </button>
+                <button class="world-btn" data-world="harry-potter"
+                        title="Enter the magical world of Harry Potter at Hogwarts School of Witchcraft and Wizardry. Experience magical education, mysteries, and wizard adventures.">
+                    Harry Potter
+                </button>
+                <button class="world-btn" data-world="star-wars"
+                        title="Journey to a galaxy far, far away. Experience space adventures with the Force, lightsabers, droids, and diverse alien species.">
+                    Star Wars
+                </button>
+                <button class="world-btn" data-world="dnd"
+                        title="Dive into the Forgotten Realms D&D setting. Experience classic tabletop RPG adventures with detailed mechanics and rich lore.">
+                    D&D
+                </button>
+                <button class="world-btn" data-world="custom" id="customWorldBtn"
+                        title="Create your own unique world setting with custom rules, themes, and elements.">
+                    Custom World
+                </button>
+            </div>
+
+            <div id="customWorldPanel" class="custom-world-panel" style="display: none;">
+                <h3>Create Your Own World</h3>
+                <p class="custom-world-info">Describe your world's setting, theme, and key elements. Be specific about the type of adventure you want to experience.</p>
+                <textarea id="customWorldDescription" 
+                          placeholder="Example: A steampunk world where magic and technology coexist. The cities float in the sky, connected by airships. Players can use both magical spells and mechanical gadgets..."
+                          rows="4"></textarea>
+                <button id="saveCustomWorld" class="custom-world-btn">Save & Select This World</button>
+            </div>
+        </div>
+
+        <div class="playstyle-selector-container">
+            <p class="playstyle-info">Select your preferred play style to shape your adventure experience:</p>
+            
+            <div class="playstyle-selector">
+                <button class="playstyle-btn active" data-style="adventure"
+                        title="Focus on exploration, discovering new locations, solving puzzles, and facing challenges in unknown territories.">
+                    <h3>Adventure</h3>
+                    <p>Explore unknown lands, discover secrets, and face challenges in mysterious places</p>
+                </button>
+                
+                <button class="playstyle-btn" data-style="social"
+                        title="Emphasis on character interactions, relationship building, political intrigue, and social dynamics.">
+                    <h3>Social</h3>
+                    <p>Build relationships, engage in politics, make allies, and experience character-driven stories</p>
+                </button>
+                
+                <button class="playstyle-btn" data-style="simulation"
+                        title="Focus on managing and developing your own establishment or organization within the game world.">
+                    <h3>Simulation</h3>
+                    <p>Manage your own establishment, build an organization, or develop a community</p>
+                </button>
+            </div>
+        </div>
+
+        <div class="start-game-container">
+            <button id="start-game-btn">Start Adventure</button>
+        </div>
+    </div>
+
+    <!-- Game Container -->
+    <div id="game-interface" style="display: none;">
+        <div class="game-header">
+            <button id="exit-game-btn" class="exit-btn">Exit to Homepage</button>
+        </div>
+
+        <!-- Game content area -->
+        <div id="game-container">
+            <div id="game-content"></div>
+        </div>
+
+        <!-- Command input area -->
+        <div class="command-area">
+            <form id="command-form">
+                <input type="text" id="command-input" placeholder="Enter your command..." autofocus>
+                <button type="submit" id="submit-btn">Send</button>
+            </form>
+        </div>
+
+        <!-- Download controls -->
+        <div class="download-controls">
+            <button id="downloadTxt" class="btn btn-secondary">Download History (TXT)</button>
+            <button id="downloadCsv" class="btn btn-secondary">Download History (CSV)</button>
+        </div>
+    </div>
+
+    <script type="text/javascript" src="{% static 'dungeon/js/game.js' %}"></script>
+    <!-- <script type="text/javascript" src="../static/dungeon/js/game.js"></script> -->
+</body>
+</html>
